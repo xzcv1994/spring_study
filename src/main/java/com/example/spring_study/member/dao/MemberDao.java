@@ -1,11 +1,11 @@
 package com.example.spring_study.member.dao;
 
-import java.beans.PropertyVetoException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,27 +17,30 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @Repository
 public class MemberDao implements IMemberDao{
 	
-	private String driver = "org.h2.Driver";
-	private String userId = "sa";
-	private String userPw = "";
-	private String url = "jdbc:h2:tcp://localhost/~/test";
+//	private String driver = "org.h2.Driver";
+//	private String userId = "sa";
+//	private String userPw = "";
+//	private String url = "jdbc:h2:tcp://localhost/~/test";
 	
-	private ComboPooledDataSource dataSource;
+//	private ComboPooledDataSource dataSource;
 	private JdbcTemplate template;
 	
-	public MemberDao() {
-		dataSource = new ComboPooledDataSource();
-		try {
-			dataSource.setDriverClass(driver);
-			dataSource.setJdbcUrl(url);
-			dataSource.setUser(userId);
-			dataSource.setPassword(userPw);
-		} catch(PropertyVetoException e) {
-			e.printStackTrace();
-		}
+	@Autowired
+	public MemberDao(ComboPooledDataSource dataSource) {
+//		dataSource = new ComboPooledDataSource();
+//		try {
+//			dataSource.setDriverClass(driver);
+//			dataSource.setJdbcUrl(url);
+//			dataSource.setUser(userId);
+//			dataSource.setPassword(userPw);
+//		} catch(PropertyVetoException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		template = new JdbcTemplate();
+//		template.setDataSource(dataSource);	
 		
-		template = new JdbcTemplate();
-		template.setDataSource(dataSource);		
+		template = new JdbcTemplate(dataSource);
 	}
 	
 	@Override

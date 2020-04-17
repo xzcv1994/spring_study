@@ -8,12 +8,19 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<annotation-driven/>
-	
+	<context:property-placeholder location="classpath:datasource.properties"/>
 	<resources mapping="/resources/**" location="/resources/"/>
 	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name = "prefix" value="/WEB-INF/views/"/>
 		<beans:property name = "suffix" value=".jsp"/>
+	</beans:bean>
+	
+	<beans:bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<beans:property name="driverClass" value="${db.driver}"/>
+		<beans:property name="jdbcUrl" value="${db.url}"/>
+		<beans:property name="user" value="${db.username}"/>
+		<beans:property name="password" value="${db.password}"/>
 	</beans:bean>
 	
 	<context:component-scan base-package="com.example.spring_study"/>
@@ -25,6 +32,7 @@
 			<beans:bean class="com.example.spring_study.member.MemberLoginInterceptor"/>
 		</interceptor>
 	</interceptors>
-
+	
+	
 </beans:beans>
 	<!-- DispatcherServlet Context: defines this se -->
