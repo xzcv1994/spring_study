@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -12,7 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.example.spring_study.member.Member;
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+//import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Repository
 public class MemberDao implements IMemberDao{
@@ -26,7 +27,7 @@ public class MemberDao implements IMemberDao{
 	private JdbcTemplate template;
 	
 	@Autowired
-	public MemberDao(ComboPooledDataSource dataSource) {
+	public MemberDao(DataSource dataSource) {
 //		dataSource = new ComboPooledDataSource();
 //		try {
 //			dataSource.setDriverClass(driver);
@@ -48,7 +49,7 @@ public class MemberDao implements IMemberDao{
 		// TODO Auto-generated method stub
 		int result = 0;
 		
-		final String sql = "INSERT INTO member (memId, memPw, memMail) values (?,?,?)";
+		final String sql = "INSERT INTO spring5fs.member (memId, memPw, memMail) values (?,?,?)";
 		
 		result = template.update(sql, member.getMemId(), member.getMemPw(), member.getMemMail());
 		
@@ -60,7 +61,7 @@ public class MemberDao implements IMemberDao{
 		// TODO Auto-generated method stub
 		List<Member> members = null;
 		
-		final String sql = "SELECT * FROM member WHERE memId = ? AND memPw = ?";
+		final String sql = "SELECT * FROM spring5fs.member WHERE memId = ? AND memPw = ?";
 		
 		members = template.query(sql, 
 			new PreparedStatementSetter() {
@@ -89,7 +90,7 @@ public class MemberDao implements IMemberDao{
 		// TODO Auto-generated method stub
 		int result = 0;
 		
-		final String sql = "UPDATE member SET memPw = ?, memMail = ? WHERE memId = ?";
+		final String sql = "UPDATE spring5fs.member SET memPw = ?, memMail = ? WHERE memId = ?";
 		
 		result = template.update(sql, member.getMemPw(), member.getMemMail(), member.getMemId());
 		
@@ -101,7 +102,7 @@ public class MemberDao implements IMemberDao{
 		// TODO Auto-generated method stub
 		int result = 0;
 		
-		final String sql = "DELETE member WHERE memId = ? AND memPw = ?";
+		final String sql = "DELETE spring5fs.member WHERE memId = ? AND memPw = ?";
 		
 		result = template.update(sql, member.getMemId(), member.getMemPw());
 		
